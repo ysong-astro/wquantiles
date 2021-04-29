@@ -18,8 +18,8 @@ def quantile_1D(data, weights, quantile):
         Input array (one dimension).
     weights : ndarray
         Array with the weights of the same size of `data`.
-    quantile : float
-        Quantile to compute. It must have a value between 0 and 1.
+    quantile : float or array
+        Quantiles to compute. All values must be between 0 and 1.
 
     Returns
     -------
@@ -39,7 +39,7 @@ def quantile_1D(data, weights, quantile):
         raise TypeError("weights must be a one dimensional array")
     if data.shape != weights.shape:
         raise TypeError("the length of data and weights must be the same")
-    if ((quantile > 1.) or (quantile < 0.)):
+    if np.any(quantile > 1.) or np.any(quantile < 0.):
         raise ValueError("quantile must have a value between 0. and 1.")
     # Sort the data
     ind_sorted = np.argsort(data)
